@@ -8,10 +8,10 @@ import { TodoItem } from "./components/TodoItem";
 import './App.css';
 
 const defaultTodos = [
- {id: 1, text: 'hola shshsja jaskahsib b  ashoas shxsc hxshxbdsc csicnsc ocjs', completed: false},
- {id: 2, text: 'adios', completed: true},
- {id: 3, text: 'hola', completed: false},
- {id: 4, text: 'pepe', completed: true}
+ {id: 1, text: 'River', completed: false},
+ {id: 2, text: 'Boca', completed: true},
+ {id: 3, text: 'Racing', completed: false},
+ {id: 4, text: 'Independiente', completed: true}
 ]
 
 function App() {
@@ -33,6 +33,20 @@ function App() {
     })
   }
 
+  const completeTodo = (text) => {
+    const todoIndex = todos.findIndex(todo => todo.text === text);
+    const newTodos = [...todos];
+    newTodos[todoIndex].completed = true;
+    setTodos(newTodos);
+  }
+
+  const deleteTodo = (text) => {
+    const todoIndex = todos.findIndex(todo => todo.text === text);
+    const newTodos = [...todos];
+    newTodos.splice(todoIndex, 1);
+    setTodos(newTodos);
+  }
+
   return (
     <div className="app">
       <TodoCounter 
@@ -42,11 +56,13 @@ function App() {
       
       <TodoList>
         {searchedTodos.map(todo => (
-          <TodoItem 
-            key={todo.id} 
+          <TodoItem
+            key={todo.text}
             text={todo.text}
             completed={todo.completed}
-            />
+            onComplete={() => completeTodo(todo.text)}
+            onDelete={() => deleteTodo(todo.text)}
+          />
         ))}
       </TodoList>
 
